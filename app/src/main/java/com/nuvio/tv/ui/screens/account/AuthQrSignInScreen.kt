@@ -464,7 +464,7 @@ private fun AuthEmailLoginForm(
             value = email,
             onValueChange = { email = it },
             placeholder = stringResource(R.string.auth_email_placeholder),
-            keyboardType = KeyboardType.Email,
+            keyboardType = KeyboardType.Text, // CMTV: username
             imeAction = ImeAction.Next,
             modifier = Modifier.focusRequester(initialFocusRequester)
         )

@@ -94,7 +94,7 @@ class AccountViewModel @Inject constructor(
     private var qrLoginExchangeInFlight: Boolean = false
 
     val usesEmailPasswordLogin: Boolean
-        get() = serverConfiguration.isCustom && serverConfiguration.capabilities.emailPasswordAuth
+        get() = serverConfiguration.capabilities.emailPasswordAuth // CMTV: our server is the built-in one
 
     init {
         observeAuthState()
@@ -156,7 +156,7 @@ class AccountViewModel @Inject constructor(
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
-            authManager.signInWithEmail(email, password).fold(
+            authManager.signInWithEmail(email.trim().let { if ("@" in it && "." in it.substringAfter("@")) it else it.lowercase().replace("@", "_at_") + "@nuvio.cmtv.info" }, password).fold( // CMTV: username (+ old Rob@2025 logins)
                 onSuccess = {
                     pullRemoteData().onFailure { e ->
                         Log.e("AccountViewModel", "signIn: pullRemoteData failed, continuing signed-in flow", e)

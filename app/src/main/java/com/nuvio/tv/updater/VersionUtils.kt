@@ -68,7 +68,7 @@ internal object VersionUtils {
         )
     }
 
-    fun isPrerelease(raw: String?): Boolean = parse(raw)?.prerelease?.isNotEmpty() == true
+    fun isPrerelease(raw: String?): Boolean = parse(raw)?.prerelease?.let { it.isNotEmpty() && it.firstOrNull() != "cmtv" } == true // CMTV
 
     fun isRemoteNewer(remote: String?, local: String?): Boolean {
         val remoteVersion = parse(remote) ?: return false
