@@ -473,7 +473,7 @@ object NetworkModule {
     @Named("github")
     fun provideGitHubRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
+            .baseUrl("https://billing.cmtv.info/api/cmtv/app-updates/") // CMTV: updates from billing
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()

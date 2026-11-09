@@ -63,9 +63,9 @@ class ServerConfigurationStore @Inject constructor(
         backendUrl = BuildConfig.SUPABASE_URL.trimEnd('/'),
         publishableKey = BuildConfig.SUPABASE_ANON_KEY,
         capabilities = ServerCapabilities(
-            emailPasswordAuth = false,
+            emailPasswordAuth = true, // CMTV: username + password on the TV
             tvLogin = true,
-            watchParty = true
+            watchParty = false // CMTV 1.1.0: our self-hosted server has no watch-party functions
         ),
         isCustom = false,
         fallbackBackendUrl = BuildConfig.SUPABASE_FALLBACK_URL.trim().trimEnd('/').takeIf { it.isNotBlank() },
